@@ -50,8 +50,8 @@ public class Translator {
         Map<String, String> translateTextMap = new HashMap<>();
         translateTextMap.put("key", YA_KEY);
         translateTextMap.put("text", text);
-        if (!langFrom.equals("")) {
-            translateTextMap.put("lang", "");
+        if (!langFrom.equals("") && !langFrom.isEmpty()) {
+            translateTextMap.put("lang", langFrom + "-" + langTo);
         } else {
             translateTextMap.put("lang", langTo);
         }

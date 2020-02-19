@@ -28,7 +28,6 @@ public class TranslatorController extends Translator {
 //        dictionaryWithLanguages.put("ru3", "Русский3");
 //    }
 
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
     @GetMapping("/")
     public String start(TranslatorModel translatorModel, Model model) {
 
@@ -46,10 +45,13 @@ public class TranslatorController extends Translator {
     @PostMapping("/")
     public String translate(@ModelAttribute TranslatorModel translatorModel, Model model) {
         String translateText = translatorModel.getInputText();
-        String langFrom = translatorModel.getSelectedLanguageTranslateFrom();
-        String langTo = translatorModel.getSelectedLanguageTranslateTo();
-
-        translatorModel.setTranslateText(translateText(translateText, langFrom, langTo));
+        if (!translateText.isEmpty() && !translateText.equals("")) {
+            String langFrom = translatorModel.getSelectedLanguageTranslateFrom();
+            String langTo = translatorModel.getSelectedLanguageTranslateTo();
+            translatorModel.setTranslateText(translateText(translateText, langFrom, langTo));
+        } else {
+            System.out.println("error");
+        }
 
         model.addAttribute("translateForm", translatorModel);
         model.addAttribute("dictionaryWithLanguages", dictionaryWithLanguages);
